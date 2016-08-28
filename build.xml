@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+	
+	<!--
+		Build created for Apache Ant
+		for information use command 'ant'
+		or 'ant -p' 
+	-->
+
+<project name="Game Of Life" basedir="." default="usage">
+
+	<property name="src.dir"   value="src" />
+	<property name="res.dir"   value="res" />
+	<property name="build.dir" value="build" />
+	<property name="class.dir" value="${build.dir}/classes" />
+
+	<target name="usage">
+		<echo message=""/>
+		<echo message="${ant.project.name} build file"/>
+		<echo message="---------------------------"/>
+		<echo message=""/>
+		<echo message="Available targets are:"/>
+		<echo message=""/>
+		<echo message="build      ---> compile all source code in 'build' dir"/>
+		<echo message="run        ---> run application, use arguments to configure width, height, cell size" /> 
+		<echo message="                and precision of the initial live cells random creation on the board and"/>
+		<echo message="                arguments:" />
+		<echo message="                      '-Dwidth=[number]'    - first argument"/>
+		<echo message="                      '-Dheight=[number]'   - second argument"/>
+		<echo message="                      '-Dcell=[number]'     - third argument, '1' - smallest size of the cell"/>
+		<echo message="                      '-Dprecision=[number] - fourth argument, '1' and '2' create cells all over the board"/>
+		<echo message="                                              start with '3' to create less cells on the board" />
+		<echo message="                available commands:" />
+		<echo message="                       ant run" />
+		<echo message="                       ant run -Dwidth[number] -Dheight=[number]" />
+		<echo message="                       ant run -Dwidth[number] -Dheight=[number] -Dcell=[number]" />
+		<echo message="                       ant run -Dwidth[number] -Dheight=[number] -Dcell=[number] -Dprecision=[number]" />
+		<echo message="clean      ---> delete 'build' dir"/>
+		<echo message=""/>
+	</target>
+
+	<target name="init" description="delete old files and create dirs for new ones" >
+		<echo message="remove build directory" />
+		<delete dir="${build.dir}" />
+		<echo message="creating build directiry"/>
+		<mkdir dir="${build.dir}" />
+		<echo message="creating classes directory"/>
+		<mkdir dir="${class.dir}" />
+	</target>
+
+	<target name="build" depends="init" description="Compile source java files" >
+		<javac destdir="${class.dir}" includeantruntime="fasle">
+			<src path="${src.dir}/main/java"/>
+		</javac>
+	</target>
+
+	<target name="run" depends="init, build" description="Run game with board width and height and cell specification" >
+		<property name="width" value="" />
+		<property name="height" value="" />
+		<property name="cell" value="" />
+		<property name="precision" value="" />
+		<java fork="true" failonerror="yes" classname="gol.Start">
+			<classpath>
+				<pathelement path="." />
+				<pathelement path="${build.dir}/classes" />
+			</classpath>
+			<arg value="${width}" />
+			<arg value="${height}" />
+			<arg value="${cell}" />
+			<arg value="${precision}" />
+		</java>
+	</target>
+
+	<target name="clean" description="Cleans output directories" >
+		<delete dir="${build.dir}" />
+	</target>
+
+</project>

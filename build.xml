@@ -76,6 +76,7 @@
 				<pathelement path="." />
 				<pathelement path="${build.dir}/classes" />
 			</classpath>
+			<jvmarg value="-Dsun.java2d.opengl=True" />
 		</java>
 	</target>
 
@@ -87,6 +88,7 @@
 				<pathelement path="." />
 				<pathelement path="${build.dir}/classes" />
 			</classpath>
+			<jvmarg value="-Dsun.java2d.opengl=True" />
 			<arg value="${width}" />
 			<arg value="${height}" />
 		</java>
@@ -101,6 +103,7 @@
 				<pathelement path="." />
 				<pathelement path="${build.dir}/classes" />
 			</classpath>
+			<jvmarg value="-Dsun.java2d.opengl=True" />
 			<arg value="${width}" />
 			<arg value="${height}" />
 			<arg value="${cell}" />
@@ -117,6 +120,7 @@
 				<pathelement path="." />
 				<pathelement path="${build.dir}/classes" />
 			</classpath>
+			<jvmarg value="-Dsun.java2d.opengl=True" />
 			<arg value="${width}" />
 			<arg value="${height}" />
 			<arg value="${cell}" />

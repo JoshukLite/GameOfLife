@@ -20,38 +20,33 @@
 		<echo message=""/>
 		<echo message="Available targets are:"/>
 		<echo message=""/>
-		<echo message="build      ---> compile all source code in 'build' dir"/>
-		<echo message="run        ---> run application with default options" />
-		<echo message="runWH      ---> run application with width and height specification," />
-		<echo message="                use arguments for configuration" />
-		<echo message="                arguments:" />
-		<echo message="                    '-Dwidth=[number]'    - first argument"/>
-		<echo message="                    '-Dheight=[number]'   - second argument"/>
-		<echo message="                example:" />
-		<echo message="                    'ant runWH -Dwidth=200 -Dheight=200'" />
-		<echo message="runWHC     ---> run application with width, height and cell size" />
-		<echo message="                specification, use arguments for configuration" />
-		<echo message="                arguments:" />
-		<echo message="                    '-Dwidth=[number]'    - first argument"/>
-		<echo message="                    '-Dheight=[number]'   - second argument"/>
-		<echo message="                    '-Dcell=[number]'     - third argument," />
-		<echo message="                                            '1' - smallest size of the cell"/>
-		<echo message="                example:" />
-		<echo message="                    'ant runWH -Dwidth=200 -Dheight=200 -Dcell=2'" />
-		<echo message="runWHCP    ---> run application with width, height, cell size and" />
-		<echo message="                precision specification , use arguments for configuation" />
-		<echo message="                arguments:" />
-		<echo message="                    '-Dwidth=[number]'    - first argument"/>
-		<echo message="                    '-Dheight=[number]'   - second argument"/>
-		<echo message="                    '-Dcell=[number]'     - third argument," />
-		<echo message="                                            '1' - smallest size of the cell" />
-		<echo message="                    '-Dprecision=[number] - fourth argument, '1' and '2'" />
-		<echo message="                                            create cells all over the board," />
-		<echo message="                                            start with '3' to create less cells" /> 
-		<echo message="                                            on the board" />
-		<echo message="                example:" />
-		<echo message="                    'ant runWH -Dwidth=200 -Dheight=200 -Dcell=2 -Dprecision=4'" />
-		<echo message="clean      ---> delete 'build' dir"/>
+		<echo message="build     ---> compile all source code in 'build' dir"/>
+		<echo message="run       ---> run application with default configuration or you " />
+		<echo message="               can specify width, height, cell size and precision " />
+		<echo message="               specification, use arguments for configuation" />
+		<echo message="               arguments:" />
+		<echo message="                  '-Dwidth=[number]'    - width of the matrix"/>
+		<echo message="                  '-Dheight=[number]'   - height of the matrix"/>
+		<echo message="                  '-Dcell=[number]'     - cell size in pixels" />
+		<echo message="                                          '1' - smallest size " />
+		<echo message="                                          of the cell" />
+		<echo message="                  '-Dprecision=[number] - precision of the cells " />
+		<echo message="                                          initial creating, the " />
+		<echo message="                                          more larger this number " />
+		<echo message="                                          will be, the less area " />
+		<echo message="                                          of cell initialization " />
+		<echo message="                                          will be" />
+		<echo message="                                          '1' and '2' - create " />
+		<echo message="                                          cells all over the board" />
+		<echo message="                                          , start with '3' to " />
+		<echo message="                                          create  less cells on " />
+		<echo message="                                          the board" />
+		<echo message="               example:" />
+		<echo message="                  NOTE: arguments position do not stricted by order" />
+		<echo message="                  'ant run -Dwidth=200 -Dheight=200'" />
+		<echo message="                  'ant run -Dcell=1 -Dwidth=300" />
+		<echo message="                  'ant run -Dwidth=200 -Dheight=200 -Dcell=2 -Dprecision=4'" />
+		<echo message="clean     ---> delete 'build' dir"/>
 		<echo message=""/>
 	</target>
 
@@ -70,51 +65,11 @@
 		</javac>
 	</target>
 
-	<target name="run" depends="init, build" description="Run game with default options" >
-		<java fork="true" failonerror="yes" classname="gol.Start">
-			<classpath>
-				<pathelement path="." />
-				<pathelement path="${build.dir}/classes" />
-			</classpath>
-			<jvmarg value="-Dsun.java2d.opengl=True" />
-		</java>
-	</target>
-
-	<target name="runWH" depends="init, build" description="Run game with board width and height specification" >
-		<property name="width" value="" />
-		<property name="height" value="" />
-		<java fork="true" failonerror="yes" classname="gol.Start">
-			<classpath>
-				<pathelement path="." />
-				<pathelement path="${build.dir}/classes" />
-			</classpath>
-			<jvmarg value="-Dsun.java2d.opengl=True" />
-			<arg value="${width}" />
-			<arg value="${height}" />
-		</java>
-	</target>
-
-	<target name="runWHC" depends="init, build" description="Run game with board width, height and cell specification" >
-		<property name="width" value="" />
-		<property name="height" value="" />
-		<property name="cell" value="" />
-		<java fork="true" failonerror="yes" classname="gol.Start">
-			<classpath>
-				<pathelement path="." />
-				<pathelement path="${build.dir}/classes" />
-			</classpath>
-			<jvmarg value="-Dsun.java2d.opengl=True" />
-			<arg value="${width}" />
-			<arg value="${height}" />
-			<arg value="${cell}" />
-		</java>
-	</target>
-
-	<target name="runWHCP" depends="init, build" description="Run game with board width, height, cell and precision specification" >
-		<property name="width" value="" />
-		<property name="height" value="" />
-		<property name="cell" value="" />
-		<property name="precision" value="" />
+	<target name="run" depends="init, build" description="Run game with board width, height, cell and precision specification" >
+		<property name="width" value="50" />
+		<property name="height" value="50" />
+		<property name="cell" value="10" />
+		<property name="precision" value="1" />
 		<java fork="true" failonerror="yes" classname="gol.Start">
 			<classpath>
 				<pathelement path="." />
